@@ -10,6 +10,27 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+function teamManager () {
+inquirer
+    .prompt([
+
+        //added prompts for each question/section needed in the readme.md file. 
+
+        {
+            type: 'input',
+            name: 'managerName',
+            message: 'What is the name of your Manager?',
+        },
+
+    ])
+}
+
+
+
+
+
+
+
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
