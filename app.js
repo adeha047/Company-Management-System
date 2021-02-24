@@ -23,8 +23,22 @@ inquirer
         },
 
     ])
+
+    .then((response) => {
+
+        console.log(response)
+        const answers = generateMarkdown(response)
+
+
+        fs.writeFile("main.html", answers, function (err) {
+            if (err) console.log(err)
+        })
+    }
 }
 
+
+
+//git add need to add a function for each type of person in the team
 
 
 
