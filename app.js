@@ -78,8 +78,6 @@ function teamManager() {
                 }
             },
 
-
-
         ]).then(answers => {
             console.log(answers)
             const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerofficeNumber);
@@ -87,7 +85,6 @@ function teamManager() {
             generateFile(teamMembers)
             createTeam();
         });
-
 
 }
 
@@ -154,16 +151,14 @@ function createEngineer() {
                 }
             },
 
-
-
         ]).then(answers => {
             console.log(answers)
             const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
             teamMembers.push(engineer);
             generateFile(teamMembers)
+            addTeam()
             createTeam();
         });
-
 
 }
 
@@ -227,19 +222,15 @@ function createIntern() {
                 }
             },
 
-
-
         ]).then(answers => {
             console.log(answers)
             const intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool);
             teamMembers.push(intern);
             generateFile(teamMembers)
-            createTeam();
+            
         });
 
-
 }
-
 
 function createTeam() {
     inquirer
@@ -252,9 +243,6 @@ function createTeam() {
                 choices: ["Engineer", "Intern",],
 
             }
-
-
-
 
         ]).then(answers => {
 
@@ -269,12 +257,35 @@ function createTeam() {
                     break;
             }
 
-
-
-
-
-
         })
+
+}
+
+function addTeam() {
+    inquirer
+    .prompt([
+
+        {
+            type: "confirm",
+            message: "Would you like to add a new team member?",
+            name: "addTeam",
+            choices: ["yes", "no",],
+
+        }
+
+    ]).then(answers => {
+
+        switch (answers.addTeam) {
+            case "yes":
+                createTeam();
+                break;
+            case "no":
+                generateFile();
+                break;
+            default:
+                break;
+        }
+    })
 
 }
 
