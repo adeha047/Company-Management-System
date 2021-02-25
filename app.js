@@ -82,9 +82,9 @@ function teamManager() {
 
         ]).then(answers => {
             console.log(answers)
-            const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOfficeNumber);
+            const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerofficeNumber);
             teamMembers.push(manager);
-            //generateFile(teamMembers)
+            generateFile(teamMembers)
             createTeam();
         });
 
@@ -108,6 +108,7 @@ function createEngineer() {
                     return "Please enter at least one letter as an answer"
                 }
             },
+
             {
 
                 type: "input",
@@ -159,7 +160,7 @@ function createEngineer() {
             console.log(answers)
             const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
             teamMembers.push(engineer);
-            //generateFile(teamMembers)
+            generateFile(teamMembers)
             createTeam();
         });
 
@@ -175,8 +176,8 @@ function createIntern() {
 
             {
                 type: 'input',
-                name: 'engineerName',
-                message: 'What is the name of your engineer?',
+                name: 'internName',
+                message: 'What is the name of your intern?',
                 validate: answer => {
                     if (answer !== "") {
                         return true;
@@ -202,8 +203,8 @@ function createIntern() {
 
             {
                 type: "input",
-                name: "engineerEmail",
-                message: "What is your engineer's email?",
+                name: "internEmail",
+                message: "What is your intern's email?",
                 validate: answer => {
                     const email = /\S+@\S+\.\S+/.test(answer);
                     if (email) {
@@ -232,7 +233,7 @@ function createIntern() {
             console.log(answers)
             const intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool);
             teamMembers.push(intern);
-            //generateFile(teamMembers)
+            generateFile(teamMembers)
             createTeam();
         });
 
@@ -275,14 +276,6 @@ function createTeam() {
 
         })
 
-}
-
-// function createEngineer() {
-//     console.log("create an engineer")
-// }
-
-function createIntern() {
-    console.log("create an intern")
 }
 
 function generateFile(teamMembers) {
