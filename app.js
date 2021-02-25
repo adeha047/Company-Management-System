@@ -166,6 +166,80 @@ function createEngineer() {
 
 }
 
+function createIntern() {
+    //console.log("create an intern")
+    inquirer
+        .prompt([
+
+            //added prompts for each question/section needed in the readme.md file. 
+
+            {
+                type: 'input',
+                name: 'engineerName',
+                message: 'What is the name of your engineer?',
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "Please enter at least one letter as an answer"
+                }
+            },
+            {
+
+                type: "input",
+                name: "internId",
+                message: "What is your intern's id?",
+                validate: answer => {
+                    const pass = answer.match(
+                        /^[1-9]\d*$/
+                    );
+                    if (pass) {
+                        return true;
+                    }
+                    return "Please enter a positive number greater than zero.";
+                }
+            },
+
+            {
+                type: "input",
+                name: "engineerEmail",
+                message: "What is your engineer's email?",
+                validate: answer => {
+                    const email = /\S+@\S+\.\S+/.test(answer);
+                    if (email) {
+                        return true;
+                    }
+                    return "Please enter a valid email address"
+                }
+
+            },
+
+            {
+                type: 'input',
+                name: 'internSchool',
+                message: 'What is the name of your school?',
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "Please enter at least one letter as an answer"
+                }
+            },
+
+
+
+        ]).then(answers => {
+            console.log(answers)
+            const intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool);
+            teamMembers.push(intern);
+            //generateFile(teamMembers)
+            createTeam();
+        });
+
+
+}
+
+
 function createTeam() {
     inquirer
         .prompt([
