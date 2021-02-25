@@ -9,6 +9,7 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const { create } = require("istanbul-reports");
 
 const teamMembers = [];
 
@@ -83,7 +84,7 @@ function teamManager() {
             const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerofficeNumber);
             teamMembers.push(manager);
             generateFile(teamMembers)
-            createTeam();
+            createTeam()
         });
 
 }
@@ -156,7 +157,7 @@ function createEngineer() {
             const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
             teamMembers.push(engineer);
             generateFile(teamMembers)
-            addTeam()
+            //addTeam()
             createTeam();
         });
 
@@ -180,6 +181,7 @@ function createIntern() {
                     return "Please enter at least one letter as an answer"
                 }
             },
+            
             {
 
                 type: "input",
@@ -227,8 +229,38 @@ function createIntern() {
             const intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool);
             teamMembers.push(intern);
             generateFile(teamMembers)
-            
+            createTeam()
+
         });
+
+    function addTeam() {
+        inquirer
+            .prompt([
+
+                {
+                    type: "confirm",
+                    message: "Would you like to add a new team member?",
+                    name: "addTeam",
+                    choices: ["yes", "no",],
+
+                }
+
+            ]).then(answers => {
+
+                switch (answers.addTeam) {
+                    case "yes":
+                        createTeam();
+                        break;
+                    case "no":
+                        generateFile();
+                        break;
+                    default:
+                        generateFile(teamMembers)
+                        break;
+                }
+            })
+
+    }
 
 }
 
@@ -254,6 +286,7 @@ function createTeam() {
                     createIntern();
                     break;
                 default:
+                    generateFile(teamMembers)
                     break;
             }
 
@@ -261,33 +294,33 @@ function createTeam() {
 
 }
 
-function addTeam() {
-    inquirer
-    .prompt([
+// function addTeam() {
+//     inquirer
+//     .prompt([
 
-        {
-            type: "confirm",
-            message: "Would you like to add a new team member?",
-            name: "addTeam",
-            choices: ["yes", "no",],
+//         {
+//             type: "confirm",
+//             message: "Would you like to add a new team member?",
+//             name: "addTeam",
+//             choices: ["yes", "no",],
 
-        }
+//         }
 
-    ]).then(answers => {
+//     ]).then(answers => {
 
-        switch (answers.addTeam) {
-            case "yes":
-                createTeam();
-                break;
-            case "no":
-                generateFile();
-                break;
-            default:
-                break;
-        }
-    })
+//         switch (answers.addTeam) {
+//             case "yes":
+//                 createTeam();
+//                 break;
+//             case "no":
+//                 generateFile();
+//                 break;
+//             default:
+//                 break;
+//         }
+//     })
 
-}
+// }
 
 function generateFile(teamMembers) {
     const html = render(teamMembers);
