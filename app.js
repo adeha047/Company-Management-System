@@ -10,6 +10,9 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+const teamMembers = [];
+const teamArray = [];
+
 function teamManager () {
 inquirer
     .prompt([
@@ -20,25 +23,38 @@ inquirer
             type: 'input',
             name: 'managerName',
             message: 'What is the name of your Manager?',
+            validate: answer => {
+                if(answer !== "") {
+                    return true;
+                }
+                return "Please enter at least one letter as an answer"
+            }
         },
 
     ])
 
-    .then((response) => {
-
-        console.log(response)
-        const answers = generateMarkdown(response)
-
-
-        fs.writeFile("main.html", answers, function (err) {
-            if (err) console.log(err)
-        })
-    }
 }
 
+// type: "input",
+// name: "managerId",
+// message: "What is your manager's id?",
+// validate: answer => {
+//     const pass = answer.match(
+//         /^[1-9]\d*$/
+//     );
+//     if (pass) {
+//         return true;
+//     }
+//     return "Please enter a positive number greater than zero.";
+// }
+// },
+
+   
 
 
-//git add need to add a function for each type of person in the team
+
+
+//need to add a function for each type of person in the team
 
 
 
