@@ -11,45 +11,216 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 const teamMembers = [];
-const teamArray = [];
 
-function teamManager () {
-inquirer
-    .prompt([
 
-        //added prompts for each question/section needed in the readme.md file. 
 
-        {
-            type: 'input',
-            name: 'managerName',
-            message: 'What is the name of your Manager?',
-            validate: answer => {
-                if(answer !== "") {
-                    return true;
+
+function teamManager() {
+    inquirer
+        .prompt([
+
+            //added prompts for each question/section needed in the readme.md file. 
+
+            {
+                type: 'input',
+                name: 'managerName',
+                message: 'What is the name of your Manager?',
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "Please enter at least one letter as an answer"
                 }
-                return "Please enter at least one letter as an answer"
-            }
-        },
+            },
+            {
 
-    ])
+                type: "input",
+                name: "managerId",
+                message: "What is your manager's id?",
+                validate: answer => {
+                    const pass = answer.match(
+                        /^[1-9]\d*$/
+                    );
+                    if (pass) {
+                        return true;
+                    }
+                    return "Please enter a positive number greater than zero.";
+                }
+            },
+
+            {
+                type: "input",
+                name: "managerEmail",
+                message: "What is your manager's email?",
+                validate: answer => {
+                    const email = /\S+@\S+\.\S+/.test(answer)
+                    if (email) {
+                        return true;
+                    }
+                    return "Please enter a valid email address"
+                }
+
+            },
+
+            {
+
+                type: "input",
+                name: "managerofficeNumber",
+                message: "What is your manager's Office Number?",
+                validate: answer => {
+                    const pass = answer.match(
+                        /^[1-9]\d*$/
+                    );
+                    if (pass) {
+                        return true;
+                    }
+                    return "Please enter a positive number greater than zero.";
+                }
+            },
+
+
+
+        ]).then(answers => {
+            console.log(answers)
+            const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOfficeNumber);
+            teamMembers.push(manager);
+            //generateFile(teamMembers)
+            createTeam();
+        });
+
 
 }
 
-// type: "input",
-// name: "managerId",
-// message: "What is your manager's id?",
-// validate: answer => {
-//     const pass = answer.match(
-//         /^[1-9]\d*$/
-//     );
-//     if (pass) {
-//         return true;
-//     }
-//     return "Please enter a positive number greater than zero.";
-// }
-// },
+function createEngineer() {
+    inquirer
+        .prompt([
 
-   
+            //added prompts for each question/section needed in the readme.md file. 
+
+            {
+                type: 'input',
+                name: 'engineerName',
+                message: 'What is the name of your engineer?',
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "Please enter at least one letter as an answer"
+                }
+            },
+            {
+
+                type: "input",
+                name: "engineerId",
+                message: "What is your engineer's id?",
+                validate: answer => {
+                    const pass = answer.match(
+                        /^[1-9]\d*$/
+                    );
+                    if (pass) {
+                        return true;
+                    }
+                    return "Please enter a positive number greater than zero.";
+                }
+            },
+
+            {
+                type: "input",
+                name: "engineerEmail",
+                message: "What is your engineer's email?",
+                validate: answer => {
+                    const email = /\S+@\S+\.\S+/.test(answer);
+                    if (email) {
+                        return true;
+                    }
+                    return "Please enter a valid email address"
+                }
+
+            },
+
+            {
+
+                type: "input",
+                name: "engineerGithub",
+                message: "What is your engineer's github account?",
+                validate: answer => {
+                    // /^(ftp|http|https):\/\/[^ "]+$/.test(url);
+                    const github = /^(ftp|http|https):\/\/[^ "]+$/.test(answer);
+                    if (github) {
+                        return true;
+                    }
+                    return "Please enter a valid github account"
+                }
+            },
+
+
+
+        ]).then(answers => {
+            console.log(answers)
+            const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
+            teamMembers.push(engineer);
+            //generateFile(teamMembers)
+            createTeam();
+        });
+
+
+}
+
+function createTeam() {
+    inquirer
+        .prompt([
+
+            {
+                type: "list",
+                message: "Please select which employee you would like to add next?",
+                name: "teamChoice",
+                choices: ["Engineer", "Intern",],
+
+            }
+
+
+
+
+        ]).then(answers => {
+
+            switch (answers.teamChoice) {
+                case "Engineer":
+                    createEngineer();
+                    break;
+                case "Intern":
+                    createIntern();
+                    break;
+                default:
+                    break;
+            }
+
+
+
+
+
+
+        })
+
+}
+
+// function createEngineer() {
+//     console.log("create an engineer")
+// }
+
+function createIntern() {
+    console.log("create an intern")
+}
+
+function generateFile(teamMembers) {
+    const html = render(teamMembers);
+    fs.writeFile(outputPath, html, (err) => {
+        if (err) console.log(err)
+    })
+
+}
+
+teamManager();
+
 
 
 
