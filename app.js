@@ -181,7 +181,7 @@ function createIntern() {
                     return "Please enter at least one letter as an answer"
                 }
             },
-            
+
             {
 
                 type: "input",
@@ -233,35 +233,6 @@ function createIntern() {
 
         });
 
-    function addTeam() {
-        inquirer
-            .prompt([
-
-                {
-                    type: "confirm",
-                    message: "Would you like to add a new team member?",
-                    name: "addTeam",
-                    choices: ["yes", "no",],
-
-                }
-
-            ]).then(answers => {
-
-                switch (answers.addTeam) {
-                    case "yes":
-                        createTeam();
-                        break;
-                    case "no":
-                        generateFile();
-                        break;
-                    default:
-                        generateFile(teamMembers)
-                        break;
-                }
-            })
-
-    }
-
 }
 
 function createTeam() {
@@ -272,7 +243,7 @@ function createTeam() {
                 type: "list",
                 message: "Please select which employee you would like to add next?",
                 name: "teamChoice",
-                choices: ["Engineer", "Intern",],
+                choices: ["Engineer", "Intern", "I don't want to add any more employees"],
 
             }
 
@@ -285,42 +256,16 @@ function createTeam() {
                 case "Intern":
                     createIntern();
                     break;
-                default:
+                case "I don't want to add more employees":
                     generateFile(teamMembers)
+                    break;
+                default:
                     break;
             }
 
         })
 
 }
-
-// function addTeam() {
-//     inquirer
-//     .prompt([
-
-//         {
-//             type: "confirm",
-//             message: "Would you like to add a new team member?",
-//             name: "addTeam",
-//             choices: ["yes", "no",],
-
-//         }
-
-//     ]).then(answers => {
-
-//         switch (answers.addTeam) {
-//             case "yes":
-//                 createTeam();
-//                 break;
-//             case "no":
-//                 generateFile();
-//                 break;
-//             default:
-//                 break;
-//         }
-//     })
-
-// }
 
 function generateFile(teamMembers) {
     const html = render(teamMembers);
