@@ -144,6 +144,7 @@ function createEngineer() {
                 message: "What is your engineer's github account?",
                 validate: answer => {
                     // /^(ftp|http|https):\/\/[^ "]+$/.test(url);
+                    //^(ftp|http|https):\/\/[^ "]+$ 
                     const github = /^(ftp|http|https):\/\/[^ "]+$/.test(answer);
                     if (github) {
                         return true;
