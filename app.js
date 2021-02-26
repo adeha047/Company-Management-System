@@ -184,7 +184,6 @@ function createIntern() {
             },
 
             {
-
                 type: "input",
                 name: "internId",
                 message: "What is your intern's id?",
@@ -265,7 +264,6 @@ function createTeam() {
             }
 
         })
-
 }
 
 function generateFile(teamMembers) {
