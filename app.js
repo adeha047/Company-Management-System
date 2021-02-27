@@ -143,14 +143,20 @@ function createEngineer() {
                 name: "engineerGithub",
                 message: "What is your engineer's github account?",
                 validate: answer => {
-                    // /^(ftp|http|https):\/\/[^ "]+$/.test(url);
-                    //^(ftp|http|https):\/\/[^ "]+$ 
-                    const github = /^(ftp|http|https):\/\/[^ "]+$/.test(answer);
-                    if (github) {
+                    if (answer !== "") {
                         return true;
                     }
                     return "Please enter a valid github account"
                 }
+                // validate: answer => {
+                //     // /^(ftp|http|https):\/\/[^ "]+$/.test(url);
+                //     //^(ftp|http|https):\/\/[^ "]+$ 
+                //     const github = /^(ftp|http|https):\/\/[^ "]+$/.test(answer);
+                //     if (github) {
+                //         return true;
+                //     }
+                //     return "Please enter a valid github account"
+                // }
             },
 
         ]).then(answers => {
