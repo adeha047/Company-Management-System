@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"name": "Company-Management-System",
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Company-Management-System"
+	}
+}
