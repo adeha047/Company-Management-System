@@ -38,10 +38,12 @@ https://github.com/adeha047/Company-Management-System
 
 
 ## Usage
-![demo] (assets/Employee.gif)
+![demo](assets/Employee.gif)
 
 
 ## Tests
+
+![test](assets/Test.gif)
 
 
 
