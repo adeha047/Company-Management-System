@@ -13,6 +13,9 @@ I then added screenshots of the team.html file.
 
 
 
+
+
+
 ## Table of Contents
 
 * [Installation](#installation)
@@ -32,8 +35,10 @@ I then added screenshots of the team.html file.
 https://github.com/adeha047/Company-Management-System
 
 
-## Usage
 
+
+## Usage
+[demo] (./Assets/demo/Employee.gif)
 
 
 ## Tests

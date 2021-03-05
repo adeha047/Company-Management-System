@@ -6,6 +6,7 @@
 		}
 	],
 	"settings": {
-		"liveServer.settings.multiRootWorkspaceName": "Company-Management-System"
+		"liveServer.settings.multiRootWorkspaceName": "Company-Management-System",
+		"liveServer.settings.port": 5501
 	}
 }
